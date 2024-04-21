@@ -1,8 +1,14 @@
+const { cryptoHash } = require("./crypto-hash");
+
+const timestamp = new Date("27-May-2001");
+const prevHash = null;
+const data = "This is the genesis block for jsChain";
+
 const GENESIS_DATA = {
-  timestamp: 1,
-  prevHash: "0x000",
-  hash: "0x123",
-  data: [],
+  timestamp: timestamp,
+  prevHash: prevHash,
+  hash: cryptoHash(timestamp, prevHash, data),
+  data: data,
 };
 
 module.exports = { GENESIS_DATA };
