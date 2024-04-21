@@ -1,6 +1,6 @@
 const { cryptoHash } = require("./crypto-hash");
 
-const timestamp = new Date("27-May-2001");
+const timestamp = new Date("27-May-2001").valueOf();
 const prevHash = null;
 const data = "This is the genesis block for jsChain";
 

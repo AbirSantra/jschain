@@ -28,3 +28,9 @@ class Block {
 
 const genesisBlock = Block.genesis();
 console.log(genesisBlock);
+
+const newBlock = Block.mineBlock({
+  prevBlock: genesisBlock,
+  data: "This is the second block of jsChain",
+});
+console.log(newBlock);
