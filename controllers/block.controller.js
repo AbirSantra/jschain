@@ -1,6 +1,6 @@
 const { ApiResponseHandler } = require("../apiResponse.js");
-const { BlockchainInstance } = require("../blockchain.js");
 const { fieldExtractor } = require("../fieldsExtractor.js");
+const { BlockchainInstance } = require("../blockchain.js");
 
 exports.getBlocks = async (req, res, next) => {
   try {
