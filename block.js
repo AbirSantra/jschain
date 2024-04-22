@@ -1,5 +1,6 @@
-const { GENESIS_DATA } = require("./config");
+const { GENESIS_DATA, MINE_RATE } = require("./config");
 const { cryptoHash } = require("./crypto-hash");
+const hexToBinary = require("hex-to-binary");
 
 class Block {
   constructor({ timestamp, prevHash, hash, data, nonce, difficulty }) {
@@ -17,7 +18,8 @@ class Block {
 
   static mineBlock({ prevBlock, data }) {
     const prevHash = prevBlock.hash;
-    const { difficulty } = prevBlock;
+    let { difficulty } = prevBlock;
+
     let hash,
       timestamp,
       nonce = 0;
@@ -25,8 +27,14 @@ class Block {
     do {
       nonce++;
       timestamp = Date.now();
+      difficulty = Block.adjustDifficulty({
+        block: prevBlock,
+        timestamp: timestamp,
+      });
       hash = cryptoHash(timestamp, prevHash, nonce, difficulty, data);
-    } while (hash.substring(0, difficulty) !== "0".repeat(difficulty));
+    } while (
+      hexToBinary(hash).substring(0, difficulty) !== "0".repeat(difficulty)
+    );
 
     return new this({
       timestamp: timestamp,
@@ -36,6 +44,21 @@ class Block {
       difficulty: difficulty,
       data: data,
     });
+  }
+
+  static adjustDifficulty({ block, timestamp }) {
+    const { difficulty } = block;
+
+    if (difficulty < 1) {
+      return 1;
+    }
+
+    const difference = timestamp - block.timestamp;
+    if (difference > MINE_RATE) {
+      return difficulty - 1;
+    }
+
+    return difficulty + 1;
   }
 }
 

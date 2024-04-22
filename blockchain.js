@@ -48,6 +48,18 @@ class Blockchain {
         console.error("Chain validation failed! Current hash is not valid!");
         return false;
       }
+
+      // Check if difficulty adjustment is valid
+      const difficultyDifference = Math.abs(
+        prevBlock.difficulty - currentBlock.difficulty
+      );
+      if (difficultyDifference > 1) {
+        console.error(
+          "Chain validation failed! Difficulty adjustment is invalid for block: ",
+          i
+        );
+        return false;
+      }
     }
 
     return true;

@@ -1,5 +1,7 @@
 const { cryptoHash } = require("./crypto-hash");
 
+const MINE_RATE = 1000;
+
 // Calculate the Unix Epoch timestamp for May 27, 2001
 const timestamp = Date.UTC(2001, 4, 27);
 
@@ -27,4 +29,4 @@ const GENESIS_DATA = {
   data: data,
 };
 
-module.exports = { GENESIS_DATA };
+module.exports = { GENESIS_DATA, MINE_RATE };
