@@ -13,22 +13,29 @@ class PubSub {
     this.subscriber = redis.createClient();
 
     this.subscriber.subscribe(CHANNELS.BLOCKCHAIN);
-    this.subscriber.on("message", (channel, message) => {
-      this.handleMessage(channel, message);
+    this.subscriber.on("message", (channel, chain) => {
+      this.handleChain(channel, chain);
     });
   }
 
-  handleMessage(channel, message) {
-    console.log(`Message received. Channel: ${channel}\tMessage: ${message}`);
-    const parsedMessage = JSON.parse(message);
+  handleChain(channel, chain) {
+    console.log(`Message received. Channel: ${channel}\tChain: ${message}`);
+    const parsedChain = JSON.parse(chain);
 
     if (channel === CHANNELS.BLOCKCHAIN) {
-      this.blockchain.replaceChain(parsedMessage);
+      this.blockchain.replaceChain(parsedChain);
     }
   }
 
-  publish({ channel, message }) {
-    this.publisher.publish(channel, message);
+  publish({ channel, chain }) {
+    this.publisher.publish(channel, chain);
+  }
+
+  broadcastChain() {
+    this.publish({
+      channel: CHANNELS.BLOCKCHAIN,
+      chain: JSON.stringify(this.blockchain.chain),
+    });
   }
 }
 
