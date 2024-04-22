@@ -1,13 +1,21 @@
 const { cryptoHash } = require("./crypto-hash");
 
-const timestamp = new Date("27-May-2001").valueOf();
+// Calculate the Unix Epoch timestamp for May 27, 2001
+const timestamp = Date.UTC(2001, 4, 27);
+
+// Define prevHash as null since this is the genesis block
 const prevHash = null;
-const data = "This is the genesis block for jsChain";
+
+// Initial Data for Genesis block
+const data = "This is the genesis block for JSChain. Created by Abir Santra.";
+
+// Generate hash for the genesis block
+const hash = cryptoHash(timestamp, prevHash, data);
 
 const GENESIS_DATA = {
   timestamp: timestamp,
   prevHash: prevHash,
-  hash: cryptoHash(timestamp, prevHash, data),
+  hash: hash,
   data: data,
 };
 
