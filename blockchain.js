@@ -83,4 +83,6 @@ class Blockchain {
   }
 }
 
-module.exports = Blockchain;
+const BlockchainInstance = new Blockchain();
+
+module.exports = { Blockchain, BlockchainInstance };
