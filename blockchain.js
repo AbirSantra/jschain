@@ -18,7 +18,10 @@ class Blockchain {
     // Check if the genesis block is valid
     const genesisIsValid =
       JSON.stringify(chain[0]) === JSON.stringify(Block.genesis());
+    console.log("Chain[0]: ", JSON.stringify(chain[0]));
+    console.log("Genesis: ", JSON.stringify(Block.genesis()));
     if (!genesisIsValid) {
+      console.error("Chain validation failed! Genesis Block is not valid!");
       return false;
     }
 
@@ -29,6 +32,7 @@ class Blockchain {
 
       // Check if current block's prevHash matches the prevBlock's hash
       if (currentBlock.prevHash !== prevBlock.hash) {
+        console.error("Chain validation failed! Prev hash does not match!");
         return false;
       }
 
@@ -36,9 +40,12 @@ class Blockchain {
       const validatedHash = cryptoHash(
         currentBlock.timestamp,
         currentBlock.prevHash,
+        currentBlock.nonce,
+        currentBlock.difficulty,
         currentBlock.data
       );
       if (currentBlock.hash !== validatedHash) {
+        console.error("Chain validation failed! Current hash is not valid!");
         return false;
       }
     }
