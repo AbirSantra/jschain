@@ -6,14 +6,17 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "dev-peer": "cross-env GENERATE_PEER_PORT='true' nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.8",
+    "cross-env": "^5.2.0",
     "express": "^4.19.2",
     "hex-to-binary": "^1.0.1",
-    "redis": "^4.6.13"
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

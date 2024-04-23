@@ -19,7 +19,7 @@ class PubSub {
   }
 
   handleChain(channel, chain) {
-    console.log(`Message received. Channel: ${channel}\tChain: ${message}`);
+    console.log(`Chain broadcast received.`);
     const parsedChain = JSON.parse(chain);
 
     if (channel === CHANNELS.BLOCKCHAIN) {

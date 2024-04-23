@@ -18,8 +18,6 @@ class Blockchain {
     // Check if the genesis block is valid
     const genesisIsValid =
       JSON.stringify(chain[0]) === JSON.stringify(Block.genesis());
-    console.log("Chain[0]: ", JSON.stringify(chain[0]));
-    console.log("Genesis: ", JSON.stringify(Block.genesis()));
     if (!genesisIsValid) {
       console.error("Chain validation failed! Genesis Block is not valid!");
       return false;
@@ -67,19 +65,21 @@ class Blockchain {
 
   replaceChain(chain) {
     // Check if the current chain is longer
-    if (this.chain.length >= chain) {
-      console.error("Target chain is shorter than existing chain!");
+    if (this.chain.length >= chain.length) {
+      console.error("Incoming chain is not longer than existing chain!");
       return;
     }
 
     // Check if target chain is valid
     if (!Blockchain.isValidChain(chain)) {
-      console.error("Target chain is not valid!");
+      console.error("Incoming chain is not valid!");
       return;
     }
 
     // All checks passed. Replace the existing chain with target chain
+    console.log("Longer chain found! Replacing current chain...");
     this.chain = chain;
+    console.log("Replaced chain with: ", chain);
   }
 }
 

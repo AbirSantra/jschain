@@ -1,6 +1,7 @@
 const { ApiResponseHandler } = require("../apiResponse.js");
 const { fieldExtractor } = require("../fieldsExtractor.js");
 const { BlockchainInstance } = require("../blockchain.js");
+const { PubSubInstance } = require("../pubsub.js");
 
 exports.getBlocks = async (req, res, next) => {
   try {
@@ -20,6 +21,7 @@ exports.addBlock = async (req, res, next) => {
     const { data } = fieldExtractor(req.body, ["data"]);
 
     BlockchainInstance.addBlock({ data: data });
+    PubSubInstance.broadcastChain();
 
     ApiResponseHandler({
       res: res,
